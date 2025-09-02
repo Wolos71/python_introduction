@@ -2,9 +2,13 @@ import os
 import sys
 import pathlib
 
-c = ["#include", "#define", ] #zmienić na dicta
-php = ["<?php"]
-pyton = ["def ", "import "]
+langs = {
+  "C/C++" : ["#include", "#define"],
+  "php" : ["<?php"],
+  "pyton" : ["def ", "import "],
+  "HTML" : ["<html", "<body", "<div"],
+}
+
 lang = set((""))
 
 dir = []
@@ -25,12 +29,10 @@ for openFile in file:
   try:
     with open(openFile, "r") as plik:
       content = plik.read()
-      for p in pyton:
-        if p in content:
-          lang.add("pyton")
-      for ce in c:
-        if ce in content:
-          lang.add("c")
+      for jezyk, wyrazenie in langs.items():
+        if any(x in content for x in wyrazenie):
+#          print(f"    {openFile}        {jezyk}") debugowanie
+          lang.add(jezyk)
   except UnicodeDecodeError:
     continue
 
