@@ -31,9 +31,9 @@ for openFile in file:
       content = plik.read()
       for jezyk, wyrazenie in langs.items():
         if any(x in content for x in wyrazenie):
-#          print(f"    {openFile}        {jezyk}") debugowanie
+#          print(f"    {openFile}        {jezyk}")  //debugowanie
           lang.add(jezyk)
-  except UnicodeDecodeError:
+  except UnicodeDecodeError:      # pomija pliki nietekstowe
     continue
 
 
