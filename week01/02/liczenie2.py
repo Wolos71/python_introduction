@@ -1,5 +1,5 @@
 
-PLIK = ('/home/wolos/Downloads/pyton/py10-day01-files/howmuchcode.py')
+PLIK = ('***') #put here file path
 
 lines = 0
 

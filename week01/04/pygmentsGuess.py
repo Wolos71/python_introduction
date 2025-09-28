@@ -1,3 +1,5 @@
+#run pygmentsGuess.sh to make venv to use this code
+
 import sys
 from pygments.lexers import guess_lexer
 
