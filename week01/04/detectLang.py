@@ -6,7 +6,7 @@ langs = {
   "C/C++" : ["#include", "#define"],
   "php" : ["<?php"],
   "pyton" : ["def ", "import "],
-  "HTML" : ["<html", "<body", "<div"],
+  "HTML" : ["<html", "<body", "<div"]
 }
 
 lang = set((""))
@@ -31,7 +31,6 @@ for openFile in file:
       content = plik.read()
       for jezyk, wyrazenie in langs.items():
         if any(x in content for x in wyrazenie):
-#          print(f"    {openFile}        {jezyk}")  //debugowanie
           lang.add(jezyk)
   except UnicodeDecodeError:      # pomija pliki nietekstowe
     continue
