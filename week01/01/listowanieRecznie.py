@@ -6,7 +6,7 @@ import sys
 dir = []
 file = []
 
-dir.append("/Users/wolos/Documents/nauka/python_introduction/week01")
+dir.append(sys.argv[1])
 
 for i in dir:
   for f in os.listdir(i):
