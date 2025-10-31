@@ -62,8 +62,6 @@ html_template = f"""<html>
 </html>
 """
 
-# writing the code into the file
 html.write(html_template)
 
-# close the file
 html.close()
