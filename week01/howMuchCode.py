@@ -21,6 +21,14 @@ Langs = {
   ".sh": "Bash",
 }
 
+totalLang= {}
+
+for ext, lang in Langs.items():
+    if lang not in totalLang:
+        totalLang[lang] = 0 
+
+total = 0
+
 dirToScan = sys.argv[1]
 
 
@@ -33,12 +41,11 @@ def lineCount(fileArg):
         lines += 1
   return lines
 
-total = 0
 
 
 for path, dirs, files in os.walk(dirToScan):
-  print("PATH:", path)
-  print("FILES:", files)
+  # print("sciezka:", path)
+  # print("pliki:", files)
   path_elements = path.split(os.path.sep)                   #rozbija ściezke na katalogi
   if any([x.startswith(".") for x in path_elements]):       #sprawdz czy katalog zaczyna się na . i pomiija
     continue
@@ -47,19 +54,29 @@ for path, dirs, files in os.walk(dirToScan):
     if file.startswith("."):
       continue
 
-  fullPath = f"{path}/{file}"
-  _, ext = os.path.splitext(file)                         #wycina rozszerzenie
-  ext = ext.lower()
+    fullPath = f"{path}/{file}"
+    _, ext = os.path.splitext(file)                         #wycina rozszerzenie
+    ext = ext.lower()
 
-  # if ext not in Langs:
-  #   continue
+    if ext not in Langs:
+      continue
 
-  print(f"{fullPath}")
-  linie = lineCount(fullPath)
-  total += linie
-  print(f"{fullPath}: {linie}")
+    # print(f"{fullPath}")
+    linie = lineCount(fullPath)
+    total += linie
+    lang = Langs[ext]
+    totalLang[lang] += linie
+    print(f"{fullPath}: {linie} {lang}")
 
-print(total)
+
+for lang, lines in totalLang.items():
+  if lines != 0:
+    print(f"{lang}: {lines}")
+  else:
+    continue
+
+
+print(f"w sumie wszystko: {total}")
 
 
 
