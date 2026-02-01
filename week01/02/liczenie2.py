@@ -1,3 +1,5 @@
+#nie liczy pustych linii
+
 
 PLIK = ('***') #put here file path
 

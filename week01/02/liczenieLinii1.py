@@ -1,3 +1,5 @@
+#liczy wszystkie linie
+
 
 PLIK = ('***') #put here file path
 

@@ -1,5 +1,7 @@
+#nie liczy pustych i komentarzy
 
-PLIK = ('***') #put here file path
+
+PLIK = ('/Users/wolos/Documents/nauka/python_introduction/week01/06.py') #put here file path
 
 lines = 0
 
