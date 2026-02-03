@@ -1,7 +1,7 @@
 import requests
 import json
 
-url = "***"
+url = "https://py10-day2-577570284557.europe-west1.run.app/ex1"
 
 
 
