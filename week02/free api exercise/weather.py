@@ -23,10 +23,20 @@ def dlugo_terminowa(lat, long, days):
     temp = res_dluga['daily']['temperature_2m_mean']
     print('długoterminowa:')
     for i, j in zip(day, temp):
-        print(f'{i}: {j}')
+        print(f'{i}: {j}{res_dluga["daily_units"]["temperature_2m_mean"]}')
 
 city = input('podaj miasto\n')
-days = input('na ile dni podać prognozy?\n')
+
+while True:
+    try:
+        days = int(input('na ile dni podać prognozy?\n'))
+        if 1 <= days and  days <= 16:
+            break
+        else:
+            print('\npodaj ilość dni z zakresu 1-16')
+    except ValueError:
+        print('panie to nie liczba')
+
 
 x = prognoza(city)
 
