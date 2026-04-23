@@ -21,16 +21,30 @@ def dlugo_terminowa(lat, long, days):
     res_dluga = res.json()
     day = res_dluga['daily']['time']
     temp = res_dluga['daily']['temperature_2m_mean']
-    print('długoterminowa:')
+    print('\ndługoterminowa:')
     for i, j in zip(day, temp):
         print(f'{i}: {j}{res_dluga["daily_units"]["temperature_2m_mean"]}')
 
-city = input('podaj miasto\n')
+
+def coord():
+    res = requests.get('http://ip-api.com/json/')
+    res_coord = res.json()
+    if res_coord['status'] != 'fail':
+
+        long = res_coord['lon']
+        lat = res_coord['lat']
+
+        return long, lat
+
+    else:
+        return None   
+
+
 
 while True:
     try:
         days = int(input('na ile dni podać prognozy?\n'))
-        if 1 <= days and  days <= 16:
+        if 1 <= days and days <= 16:
             break
         else:
             print('\npodaj ilość dni z zakresu 1-16')
@@ -38,15 +52,35 @@ while True:
         print('panie to nie liczba')
 
 
-x = prognoza(city)
+
+
+coor = coord()
+
+
+if coor == None:
+    city = input('podaj miasto\n')
+    x = prognoza(city)
+
+    if x is None:
+        print("nie ma takiej miejscowości")
+
+    else:
+        lat, long = x
+        dlugo_terminowa(lat, long, days)
+
+        res = requests.get(f'https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={long}&current=temperature_2m,wind_speed_10m,weather_code')
+
+        res_dict = res.json()
+        temp = str(res_dict['current']['temperature_2m']) + res_dict['current_units']['temperature_2m']
+        wind = str(res_dict['current']['wind_speed_10m']) + res_dict['current_units']['wind_speed_10m']
 
 
 
-if x is None:
-    print("nie ma takiej miejscowości")
-
+        print(f'\nDzisiejsza:\ntemperatura: {temp}\nwiatr: {wind}')
 else:
-    lat, long = x
+    long, lat = coor
+    print(lat, long)
+
     dlugo_terminowa(lat, long, days)
 
     res = requests.get(f'https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={long}&current=temperature_2m,wind_speed_10m,weather_code')
@@ -54,7 +88,5 @@ else:
     res_dict = res.json()
     temp = str(res_dict['current']['temperature_2m']) + res_dict['current_units']['temperature_2m']
     wind = str(res_dict['current']['wind_speed_10m']) + res_dict['current_units']['wind_speed_10m']
-
-
 
     print(f'\nDzisiejsza:\ntemperatura: {temp}\nwiatr: {wind}')
