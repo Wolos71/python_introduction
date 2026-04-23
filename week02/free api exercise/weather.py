@@ -1,3 +1,7 @@
+#dzisiejsza pogoda do funkcji i zapytanie, czy to odpowiednia miejscowość
+
+
+
 import requests
 
 
